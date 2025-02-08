@@ -1,0 +1,33 @@
+import pandas as pd
+from sklearn import linear_model
+import numpy as np
+
+data=pd.read_csv('data_Q2.csv',index_col=0,encoding='GBK')
+
+#Get x and y (from data frame) to console 1/A
+x=data.iloc[0:11,0:8]
+y=data.iloc[0:11,8]
+
+# Building a linear regression model
+regr = linear_model.LinearRegression()
+# fitting
+regr.fit(x.values,y.values)
+#x.values ​​is not a separate line, it should be placed in the code as data
+print(regr.coef_)
+print(regr.intercept_)
+# Give the value to be predicted
+x1=data.iloc[11,0:8]
+print(regr.predict(np.array(x1).reshape(1,-1)))
+x2=data.iloc[12,0:8]
+print(regr.predict(np.array(x2).reshape(1,-1)))
+x3=data.iloc[13,0:8]
+print(regr.predict(np.array(x3).reshape(1,-1)))
+#View the best fit coefficients
+print('k:',regr.coef_)
+#intercept
+print('b:',regr.intercept_)
+xs=np.array(data.iloc[11:,0:8])
+for item in xs:
+    if item[0]>18:
+        item[0]=18
+    print(item,':',regr.predict(item.reshape(1,-1)))
